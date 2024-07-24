@@ -5,9 +5,8 @@ import people from '../../assets/people.jpg'
 import news from '../../assets/news.jpg'
 import paper from '../../assets/paper.jpg'
 import { getIdnNews } from '../../service/getNews.service'
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
 import SkeletonLoading from '../../element/loading/skeletonLoading'
+import { Link } from 'react-router-dom'
 
 const NewsIdn = () => {
     const [articles, setArticles] = useState([])
@@ -89,9 +88,11 @@ const NewsIdn = () => {
                             readArticles.length > 0 && readArticles.map((art, index) => (
                                 <div key={index} className="max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md">
                                     <CardHeader image={art.urlToImage ? art.urlToImage : getDefaultImage()} />
-                                    <CardBody url={art.url} size='text-sm text-center'>
-                                        {art.title}
-                                    </CardBody>
+                                    <Link to={art.url}>
+                                        <CardBody size='text-sm text-center'>
+                                            {art.title}
+                                        </CardBody>
+                                    </Link>
                                 </div>
                             )))}
                     </div>

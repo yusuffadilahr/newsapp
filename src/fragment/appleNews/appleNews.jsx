@@ -7,8 +7,8 @@ import koran from '../../assets/koran.jpg'
 import news from '../../assets/koran.jpg'
 import paper from '../../assets/paper.jpg'
 import people from '../../assets/people.jpg'
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import SkeletonLoading from '../../element/loading/skeletonLoading'
+import { Link } from 'react-router-dom'
 
 const AppleNews = () => {
     const [appleNews, setAppleNews] = useState([])
@@ -83,24 +83,19 @@ const AppleNews = () => {
             <div className="mx-auto flex bg-gray-900">
                 <div className="max-w-full mx-auto px-5 mb-3 ">
                     <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
-                    {loading ? (
-                            Array.from({ length: 4 }).map((_, index) => (
-                                <div key={index} className="max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md">
-                                    <Skeleton height={20} />
-                                    <div className="p-5">
-                                        <Skeleton count={3} />
-                                    </div>
-                                </div>
-                            ))
+                        {loading ? (
+                            <SkeletonLoading />
                         ) : (
                             readArticles.length > 0 && readArticles.map((art, index) => (
-                            <div key={index} className="max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md">
-                                <CardHeader image={art.urlToImage ? art.urlToImage : getDefaultImage()} />
-                                <CardBody size='text-sm text-center'>
-                                    {art.title}
-                                </CardBody>
-                            </div>
-                        )))}
+                                <div key={index} className="max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md">
+                                    <CardHeader image={art.urlToImage ? art.urlToImage : getDefaultImage()} />
+                                    <Link to ={art.url}>
+                                        <CardBody size='text-sm text-center'>
+                                            {art.title}
+                                        </CardBody>
+                                    </Link>
+                                </div>
+                            )))}
                     </div>
                 </div>
             </div>
@@ -112,39 +107,32 @@ const AppleNews = () => {
                         </h1>
                     </div>
                     <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
-                    {loading ? (
-                            Array.from({ length: 4 }).map((_, index) => (
-                                <div key={index} className="max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md">
-                                    <Skeleton height={20} />
-                                    <div className="p-5">
-                                        <Skeleton count={3} />
-                                    </div>
-                                </div>
-                            ))
+                        {loading ? (
+                            <SkeletonLoading />
                         ) : (
                             appleNews.length > 0 && appleNews.map((art, index) => (
-                            <div key={index} className="max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md">
-                                <CardHeader image={art.urlToImage ? art.urlToImage : getDefaultImage()} />
-                                <div className="p-5">
-                                    <div className="text-xs font-bold uppercase text-teal-700 mt-1 mb-2">{(FormatNewDate(art.publishedAt))}</div>
-                                    <CardBody>
-                                        {art.title}
-                                    </CardBody>
-                                    <div className="text-xs font-bold uppercase text-teal-700 mt-1 mb-2">{art.author ? art.author : 'Y-News'}</div>
-                                    <p className="mb-3 font-normal text-gray-700 ">{art.description ? art.description :
-                                        'For more information and to read the full article, please click on this page.'}</p>
-                                    <button
-                                        onClick={() => handleRead(art)}
-                                        className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
-                                    >
-                                        Read more
-                                        <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
-                                        </svg>
-                                    </button>
+                                <div key={index} className="max-w-sm bg-gray-200 rounded-lg border border-gray-200 shadow-md">
+                                    <CardHeader image={art.urlToImage ? art.urlToImage : getDefaultImage()} />
+                                    <div className="p-5">
+                                        <div className="text-xs font-bold uppercase text-teal-700 mt-1 mb-2">{(FormatNewDate(art.publishedAt))}</div>
+                                        <CardBody>
+                                            {art.title}
+                                        </CardBody>
+                                        <div className="text-xs font-bold uppercase text-teal-700 mt-1 mb-2">{art.author ? art.author : 'Y-News'}</div>
+                                        <p className="mb-3 font-normal text-gray-700 ">{art.description ? art.description :
+                                            'For more information and to read the full article, please click on this page.'}</p>
+                                        <button
+                                            onClick={() => handleRead(art)}
+                                            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                                        >
+                                            Read more
+                                            <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        )))}
+                            )))}
                     </div>
                 </div>
             </div>
